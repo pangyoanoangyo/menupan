@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Coffee Menu</title>
+    <style>
+      #container {
+        width: 500px;
+        height: 300px;
+        margin: auto;
+        border: 2px solid #ccc;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      
+      .menu-item {
+        width: 200px;
+        height: 200px;
+        margin: 5px;
+        border: 1px solid #ccc;
+        text-align: center;
+        position: relative;
+        transition: all 0.5s ease;
+      }
+      
+      .menu-item:hover {
+        transform: scale(1.2);
+        background-color: #eee;
+      }
+      
+      .menu-item h3 {
+        margin: 0;
+        padding: 5px;
+        font-size: 24px;
+        text-transform: uppercase;
+      }
+      
+      .menu-item p {
+        margin: 0;
+        font-size: 18px;
+      }
+      
+      .btn-container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      
+      .btn-container button {
+        font-size: 24px;
+        margin: 5px;
+        width: 30px;
+        height: 30px;
+        border: none;
+        border-radius: 50%;
+        background-color: #ccc;
+        color: #fff;
+        cursor: pointer;
+      }
+      
+      .btn-container p {
+        margin: 0;
+        font-size: 24px;
+        padding: 5px;
+      }
+      #menu_sub{
+        display: flex;
+        flex-direction: row;
+        background-color: aqua;
+
+
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div class="menu-item">
+        <h3>Americano</h3>
+            <div class="container" id="menu_sub">
+                <div class="btn-container">
+                    <p>HOT</p>
+                    <button class="minus-btn">-</button>
+                    <p class="quantity">0</p>
+                    <button class="plus-btn">+</button>
+                </div>
+                <div class="btn-container">
+                    <p>ICE</p>
+                    <button class="minus-btn">-</button>
+                    <p class="quantity">0</p>
+                    <button class="plus-btn">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="menu-item">
+        <h3>Cafe Latte</h3>
+        <div class="btn-container">
+          <button class="minus-btn">-</button>
+          <p class="quantity">0</p>
+          <button class="plus-btn">+</button>
+        </div>
+        <p>HOT</p>
+        <p>ICE</p>
+      </div>
+      <div class="menu-item">
+        <h3>Vanilla Latte</h3>
+        <div class="btn-container">
+          <button class="minus-btn">-</button>
+          <p class="quantity">0</p>
+          <button class="plus-btn">+</button>
+        </div>
+        <p>HOT</p>
+        <p>ICE</p>
+      </div>
+    </div>
+    <script>
+      let minusBtns = document.querySelectorAll('.minus-btn');
+      let plusBtns = document.querySelectorAll('.plus-btn');
+      let quantities = document.querySelectorAll('.quantity');
+      
+      for (let i = 0; i < minusBtns.length; i++) {
+        let plusBtn = plusBtns[i];
+        let quantity = quantities[i];
+        let value = 0;
+        
+        minusBtn.addEventListener('click', () => {
+          if (value > 0) {
+            value--;
+            quantity.textContent = value;
+          }
+        });
+        
+        plusBtn.addEventListener('click', () => {
+          value++;
+          quantity.textContent = value;
+        });
+      }
+    </script>
+    

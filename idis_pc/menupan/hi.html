@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Coffee Ordering Website</title>
+    <style>
+      /* Add some styling to make the website look nice */
+      table {
+        width: 100%;
+        text-align: center;
+        border-collapse: collapse;
+      }
+
+      th, td {
+        border: 1px solid black;
+        padding: 8px;
+      }
+
+      button {
+        padding: 8px 16px;
+        font-size: 16px;
+      }
+
+      #orders {
+        margin-top: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Create a form to allow users to make their orders -->
+    <form id="coffee-form">
+      <!-- Create a table to display the menu options -->
+      <table>
+        <tr>
+          <th>Type of Coffee</th>
+          <th>Hot/Ice</th>
+          <th>Quantity</th>
+          <th>주문</th>
+        </tr>
+        <tr>
+          <td>
+            <div class="form-floating">
+                <select class="form-select" id="coffee" aria-label="Floating label select example">
+                  <option selected>커피를 선택하세요</option>
+                  <option value="Americano">Americano</option>
+                  <option value="Latte">Latte</option>
+                  <option value="Vanilla Latte">Vanilla Latte</option>
+                </select>
+                <!-- <label for="floatingSelect">Works with selects</label> -->
+              </div> 
+          </td>
+          <td>
+            <input type="radio" name="hot-ice" value="hot" id="hot-ice" required>
+            <label for="hot">Hot</label>
+            <input type="radio" name="hot-ice" value="ice" id="hot-ice" required>
+            <label for="ice">Ice</label>
+          </td>
+          <td>
+            <button id="dec">-</button>
+            <span id="quantity">0</span>
+            <button id="inc">+</button>
+          </td>
+          <td>
+            <button id="btn_add"> 추가 </button>
+          </td>
+        </tr>
+        </table>
+    </form>
+    <!-- Create a table to display the orders -->
+    <table id="orders">
+      <tr>
+        <th>Type of Coffee</th>
+        <th>Hot/Ice</th>
+        <th>Quantity</th>
+      </tr>
+    </table>
+
+    <!-- Add the JavaScript code -->
+    <script>
+// Add event listeners to the buttons
+document.getElementById('inc').addEventListener('click', function() {
+    // Get the current quantity
+    const quantity = document.getElementById('quantity').innerText;
+    // Increment the quantity
+    document.getElementById('quantity').innerText = parseInt(quantity) + 1;
+  });
+
+  document.getElementById('dec').addEventListener('click', function() {
+    // Get the current quantity
+    const quantity = document.getElementById('quantity').innerText;
+    // Decrement the quantity
+    document.getElementById('quantity').innerText = parseInt(quantity) - 1;
+  });
+
+
+
+  document.querySelector('#btn_add').addEventListener('click', function(event) {
+    // Prevent the form from submitting
+    event.preventDefault();
+    
+    // Get the order details
+    const coffee = document.querySelector('#coffee').value;
+    const hotIce = document.querySelector('#hot-ice').value;
+    const quantity = document.getElementById('quantity').innerText;
+    // Create a new row in the table
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = `
+      <td>${coffee}</td>
+      <td>${hotIce}</td>
+      <td>${quantity}</td>
+    `;
+    document.getElementById('orders').appendChild(newRow);
+
+  console.log(coffee);
+  console.log(hotIce);
+  console.log(quantity);
+
+  });
+
+
+    </script>
+
+    
+    </body>
+    </html>
+

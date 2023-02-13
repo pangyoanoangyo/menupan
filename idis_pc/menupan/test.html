@@ -1,0 +1,353 @@
+
+<div class="card my-3">
+    <div class="card-body">
+        <div class="card-text" style="white-space: pre-line;">{{ question.content }}</div>
+        <div class="d-flex justify-content-end">
+            {% if question.modify_date %}
+            <div class="badge badge-light p-2 text-left mx-3">
+                <div class="mb-2">modified at</div>
+                <div>{{ question.modify_date }}</div>
+            </div>
+            {% endif %}
+            <div class="badge badge-light p-2 text-left">
+                <div class="mb-2">{{ question.author.username }}</div>
+                <div>{{ question.create_date }}</div>
+            </div>
+        </div>
+
+        {% if request.user == question.author %}
+        <div class="my-3">
+            <a href="{% url 'myweb:index'  %}"  class="btn btn-sm btn-outline-info">목록</a>
+            <a href="{% url 'myweb:question_modify' question.id  %}" class="btn btn-sm btn-outline-secondary">수정</a>
+            <a href="{% url 'myweb:question_delete' question.id  %}" class="delete btn btn-sm btn-outline-danger">삭제</a>
+        </div>
+        {% else %}
+        <div class="my-3">
+            <a href="{% url 'myweb:index' %}"  class="btn btn-sm btn-outline-info">목록</a>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+
+
+
+<form action="{% url 'mylist:detail' list_id %}" method="POST" class="container my-3 post-form">
+  {% csrf_token %}
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>가족</th>
+        <th>메뉴</th>
+        <!-- <th>담당자</th>
+        <th>연락처</th>
+        <th>주소</th> -->
+        <th>비고</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>박아영</td>
+        <td>
+          <table class="menu">
+            <thead>
+              <tr>
+                <th>Menu</th>
+                <th>HOT</th>
+                <th>ICE</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>아메리카노</td>                  
+                <td>
+                  <button class="decrement">-</button>
+                  <input class="quantity" >
+                  <span class="quantity">0</span>
+                  <button class="increment">+</button>
+                </td>
+                <td>
+                  <button class="decrement">-</button>
+                  <span class="quantity">0</span>
+                  <button class="increment">+</button>
+                </td>
+              </tr>
+              <tr>
+                <td>카페라떼</td>
+                <td>
+                  <button class="decrement">-</button>
+                  <span class="quantity">0</span>
+                  <button class="increment">+</button>
+                </td>
+                <td>
+                  <button class="decrement">-</button>
+                  <span class="quantity">0</span>
+                  <button class="increment">+</button>
+                </td>
+              </tr>
+              <tr>
+                <td>바닐라라떼</td>
+                <td>
+                  <button class="decrement">-</button>
+                  <span class="quantity">0</span>
+                  <button class="increment">+</button>
+                </td>
+                <td>
+                  <button class="decrement">-</button>
+                  <span class="quantity">0</span>
+                  <button class="increment">+</button>
+                </td>
+            </tbody>
+          </table>          
+        <td>
+          <button class="btn btn-primary" type="submit">확정</button><br>
+          <input type="text" placeholder="추가사항 작성">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</form>
+</div>
+
+<!-- <td>{{ profile.content }}</td>
+<td>{{ profile.person1 }}</td>
+<td>{{ profile.person_phone1 }}</td>
+<td>{{ profile.address }}</td>
+<td>{{ profile.etc }}</td>  -->
+<a href="{% url 'mylist:main' %}" class="btn btn-secondary" style="font-size:0.5vw; ">목록</a>
+<a href="{% url 'mylist:modify' profile.id %}" class="btn btn-outline-secondary" style="font-size:0.5vw; ">수정</a>
+<button onclick="auok()" class="btn btn-danger" style="font-size:0.5vw; ">삭제</button>
+<!-- <a href="{% url 'mylist:delete' profile.id %}" class="btn btn-outline-danger" style="font-size:0.5vw; ">삭제</a> -->
+</div>
+<script>
+function auok(){
+if(confirm("정말 삭제하시겠습니까?")){
+  location.href="{% url 'mylist:delete' profile.id %}";
+}
+}
+</script>
+
+<style>
+h3{
+padding: 10px;
+color:darkgray;
+}
+
+form {
+    width: 300px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+
+}
+table {
+    width: 100%;
+}
+th{
+  font-size: 10px;
+  text-align: center;
+  border-bottom: 0.2px solid grey;
+}
+td {
+  font-size: 10px;
+  padding: 5px;
+  text-align: center; 
+  justify-items: center;
+  align-items: center;
+  border-bottom: 0.2px solid grey;
+  cursor: pointer;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid black;
+  padding: 10px;
+  text-align: center;
+}
+
+button {
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+span.quantity {
+  font-size: 20px;
+  margin: 0 10px;
+}
+
+
+
+
+
+
+@media screen and (min-width: 1000px){
+  #contain{
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 430px){
+  #hide_id{
+    display: none;
+  }
+}
+</style>
+<script>
+const decrementButtons = document.getElementsByClassName("decrement");
+const incrementButtons = document.getElementsByClassName("increment");
+const quantityDisplays = document.getElementsByClassName("quantity");
+
+for (let i = 0; i < decrementButtons.length; i++) {
+let number = 0;
+
+decrementButtons[i].addEventListener("click", function() {
+  number--;
+  quantityDisplays[i].innerHTML = number;
+});
+
+incrementButtons[i].addEventListener("click", function() {
+  number++;
+  quantityDisplays[i].innerHTML = number;
+});
+}
+</script>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+<script>
+  // Create a variable to store the orders
+  let orders = [];
+
+  // Create a function to add an order to the orders array
+  function addOrder(coffeeType, hotIce, quantity) {
+    orders.push({
+      coffeeType: coffeeType,
+      hotIce: hotIce,
+      quantity: quantity
+    });
+  }
+
+  // Create a function to display the orders
+  function displayOrders() {
+    // Get the table body
+    const tableBody = document.querySelector('#orders tbody');
+
+    // Remove all the existing rows
+    tableBody.innerHTML = '';
+
+    // Loop through the orders array
+    for (let i = 0; i < orders.length; i++) {
+      // Create a new row
+      const row = document.createElement('tr');
+
+      // Create a new cell for the coffee type
+      const coffeeTypeCell = document.createElement('td');
+      coffeeTypeCell.textContent = orders[i].coffeeType;
+      row.appendChild(coffeeTypeCell);
+
+      // Create a new cell for the hot/ice
+      const hotIceCell = document.createElement('td');
+      hotIceCell.textContent = orders[i].hotIce;
+      row.appendChild(hotIceCell);
+
+      // Create a new cell for the quantity
+      const quantityCell = document.createElement('td');
+      quantityCell.textContent = orders[i].quantity;
+      row.appendChild(quantityCell);
+
+      // Add the row to the table body
+      tableBody.appendChild(row);
+    }
+  }
+
+  // Create a function to handle the form submission
+  function handleSubmit(event) {
+    // Prevent the default behaviour
+    event.preventDefault();
+
+    // Get the form values
+    const coffeeType = document.querySelector('input[name="coffee-type"]:checked').value;
+    const hotIce = document.querySelector('input[name="hot-ice"]:checked').value;
+    const quantity = document.querySelector(`#${coffeeType}-quantity`).textContent;
+
+    // Add the order to the orders array
+    addOrder(coffeeType, hotIce, quantity);
+
+    // Display the orders
+    displayOrders();
+  }
+
+  // Create a function to handle the increment button click
+  function handleIncrementButtonClick(event) {
+    // Get the button id
+    const buttonId = event.target.id;
+
+    // Get the coffee type
+    const coffeeType = buttonId.split('-')[1];
+
+    // Get the quantity element
+    const quantityElement = document.querySelector(`#${coffeeType}-quantity`);
+
+    // Get the quantity
+    let quantity = parseInt(quantityElement.textContent);
+
+    // Increment the quantity
+    quantity++;
+
+    // Update the quantity element
+    quantityElement.textContent = quantity;
+    }
+
+    // Create a function to handle the decrement button click
+    function handleDecrementButtonClick(event) {
+      // Get the button id
+      const buttonId = event.target.id;
+
+      // Get the coffee type
+      const coffeeType = buttonId.split('-')[1];
+
+      // Get the quantity element
+      const quantityElement = document.querySelector(`#${coffeeType}-quantity`);
+
+      // Get the quantity
+      let quantity = parseInt(quantityElement.textContent);
+
+      // Decrement the quantity
+      quantity--;
+
+      // Update the quantity element
+      quantityElement.textContent = quantity;
+    }
+
+    // Add an event listener to the form
+    const form = document.querySelector('form');
+    form.addEventListener('submit', handleSubmit);
+
+    // Add an event listener to the increment buttons
+    const incrementButtons = document.querySelectorAll('button[id^="increment-"]');
+    for (let i = 0; i < incrementButtons.length; i++) {
+      incrementButtons[i].addEventListener('click', handleIncrementButtonClick);
+    }
+
+    // Add an event listener to the decrement buttons
+    const decrementButtons = document.querySelectorAll('button[id^="decrement-"]');
+    for (let i = 0; i < decrementButtons.length; i++) {
+      decrementButtons[i].addEventListener('click', handleDecrementButtonClick);
+    }
+</script>
