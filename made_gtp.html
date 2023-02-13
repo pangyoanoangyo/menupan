@@ -1,0 +1,103 @@
+<html>
+  <head>
+    <title>Coffee Order</title>
+  </head>
+  <body>
+    <h1>Coffee Order Form</h1>
+    <form>
+      <h2>Person 1</h2>
+      <h3>Order 1</h3>
+      <select id="coffee1-1">
+        <option value="americano">Americano</option>
+        <option value="latte">Latte</option>
+        <option value="vanilla latte">Vanilla Latte</option>
+      </select>
+      <select id="temp1-1">
+        <option value="hot">Hot</option>
+        <option value="iced">Iced</option>
+      </select>
+      <h3>Order 2</h3>
+      <select id="coffee1-2">
+        <option value="americano">Americano</option>
+        <option value="latte">Latte</option>
+        <option value="vanilla latte">Vanilla Latte</option>
+      </select>
+      <select id="temp1-2">
+        <option value="hot">Hot</option>
+        <option value="iced">Iced</option>
+      </select>
+      
+    </form>
+    <button onclick="showOrderSummary()">Show Order Summary </button>
+    <div id="order-summary"></div>
+  </body>
+</html>
+
+<script>
+    function showOrderSummary() {
+        const orderSummary = document.getElementById("order-summary");
+        let summary = "";
+      
+        for (let i = 1; i <= 5; i++) {
+          summary += `<h2>Person ${i}</h2>`;
+          for (let j = 1; j <= 2; j++) {
+            const coffee = document.getElementById(`coffee${i}-${j}`).value;
+            const temp = document.getElementById(`temp${i}-${j}`).value;
+            summary += `<p>${j}: ${coffee} (${temp})</p>`;
+          }
+        }
+        orderSummary.innerHTML = summary;
+      }
+      
+
+      const form = document.querySelector('form');
+      const orderSummary = document.querySelector('#order-summary');
+    
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+    
+        let total = 0;
+        for (let i = 0; i < 5; i++) {
+          const menuSelect = form.elements[`menu-${i}`];
+          const temperatureSelect = form.elements[`temperature-${i}`];
+    
+          const menu = menuSelect.value;
+          const temperature = temperatureSelect.value;
+    
+          if (menu && temperature) {
+            total++;
+          }
+        }
+    
+        orderSummary.innerHTML = `주문수량: ${total}`;
+      });
+</script>
+<style>
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    select {
+      margin: 10px 0;
+    }
+  
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: lightgray;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  
+    #order-summary {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: lightyellow;
+      border: 1px solid gray;
+      border-radius: 5px;
+    }
+  </style>
+  
